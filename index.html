@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#e9ece5">
+  <title>Casa 3D — Recorrido virtual</title>
+  <link rel="stylesheet" href="styles.css">
+  <style link="style.css"></style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <main id="app" aria-label="Recorrido virtual por casas">
+    <div id="scene" aria-label="Vista 3D de la casa"></div>
+
+    <header class="topbar">
+      <div class="brand" aria-label="Casa 3D">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="m3.5 10.2 8.5-7 8.5 7v9.3a1 1 0 0 1-1 1H4.5a1 1 0 0 1-1-1v-9.3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+            <path d="M9 20.5v-6.3a2.2 2.2 0 0 1 2.2-2.2h1.6a2.2 2.2 0 0 1 2.2 2.2v6.3" stroke="currentColor" stroke-width="1.7"/>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <span class="brand-title">CASA 3D</span>
+          <span class="brand-subtitle">Recorrido virtual</span>
+        </span>
+      </div>
+
+      <div class="top-actions">
+        <label class="model-card" for="modelSelect">
+          <span class="eyebrow">Modelo disponible</span>
+          <span class="model-row">
+            <select id="modelSelect" class="model-select" aria-label="Elegir modelo de casa"></select>
+          </span>
+          <span id="modelCount" class="model-count">Cargando catálogo…</span>
+        </label>
+        <button id="uploadButton" class="icon-button" type="button" title="Abrir un GLB local; solo se verá en este navegador">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 15V3m0 0L7.5 7.5M12 3l4.5 4.5M4 14.5v4A2.5 2.5 0 0 0 6.5 21h11a2.5 2.5 0 0 0 2.5-2.5v-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Subir GLB</span>
+        </button>
+        <input id="fileInput" class="file-input" type="file" accept=".glb,model/gltf-binary,application/octet-stream" aria-label="Elegir un archivo GLB">
+        <button id="resetButton" class="icon-button reset-button" type="button" title="Restaurar posición y orientación de la cámara">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4.8 10a7.5 7.5 0 1 1-.1 4M4.5 4.5v5.8h5.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Restaurar vista</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="hint" aria-hidden="true">
+      <span class="hint-desktop"><strong>Mirar</strong> arrastrá con el mouse</span>
+      <span class="hint-desktop hint-divider"></span>
+      <span class="hint-desktop"><strong>Zoom</strong> rueda del mouse</span>
+      <span class="hint-desktop hint-divider"></span>
+      <span class="hint-desktop"><strong>Altura</strong> C / V</span>
+      <span class="hint-desktop hint-divider"></span>
+      <span><strong>Mover</strong> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd></span>
+      <span class="hint-divider"></span>
+      <span>También podés usar los joysticks</span>
+    </div>
+
+    <div class="joysticks" aria-label="Controles táctiles">
+      <div class="joystick-wrap">
+        <span class="joystick-label">Mover</span>
+        <div id="moveStick" class="joystick" role="group" aria-label="Joystick para avanzar, retroceder y desplazarse hacia los lados">
+          <span class="stick-thumb"></span>
+        </div>
+      </div>
+      <div class="joystick-wrap">
+        <span class="joystick-label">Mirar</span>
+        <div id="lookStick" class="joystick" role="group" aria-label="Joystick para orientar la cámara">
+          <span class="stick-thumb"></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="loadingLayer" class="loading-layer">
+      <section id="loadingCard" class="loading-card" aria-live="polite">
+        <span class="loader-ring" aria-hidden="true"></span>
+        <span class="error-mark" aria-hidden="true">!</span>
+        <h1 id="loadingTitle" class="loading-title">Preparando recorrido</h1>
+        <p id="loadingCopy" class="loading-copy">Estamos cargando el modelo 3D. Puede tardar un momento.</p>
+        <div id="emptyActions" class="empty-actions" hidden>
+          <button id="retryButton" class="small-button" type="button">Reintentar</button>
+          <button id="emptyUploadButton" class="small-button primary" type="button">Elegir un GLB</button>
+        </div>
+      </section>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <script type="module" src="main.js"/>
+    
+  </script>
+</body>
+</html>
