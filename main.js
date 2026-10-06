@@ -236,13 +236,10 @@ function createLoader() {
 
 async function fetchPublishedModel(model, token) {
     const url = new URL(model.url, window.location.href);
-    if (url.origin !== window.location.origin || url.protocol !== window.location.protocol) {
-    throw new Error("Los modelos publicados deben alojarse en el mismo sitio que esta página.");
-    }
+    
     activeAbortController = new AbortController();
     const response = await fetch(url.href, {
     method: "GET",
-    mode: "same-origin",
     credentials: "omit",
     redirect: "error",
     cache: "force-cache",
@@ -473,11 +470,6 @@ sceneHost.addEventListener("lostpointercapture", endDrag);
 
 sceneHost.addEventListener("wheel", function (event) {
     event.preventDefault();
-    /*
-    const unit = event.deltaMode === 1 ? 16 : (event.deltaMode === 2 ? window.innerHeight : 1);
-    camera.fov = THREE.MathUtils.clamp(camera.fov + event.deltaY * unit * .025, 40, 84);
-    camera.updateProjectionMatrix();
-    */
    
    if (event.deltaY < 0) {
     keys.add("c");
