@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 // Agregar en modelList.js cada modelo publicado. Conservar los archivos .glb a nivel raíz.
-let modelsResponse = await fetch("/models.js")
+let modelsResponse = await fetch("/models.json")
 const MODELS = await modelsResponse.json()
 const MAX_MODEL_BYTES = 300 * 1024 * 1024;
 const MAX_NODES = 30000;
