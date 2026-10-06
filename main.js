@@ -276,7 +276,7 @@ function normalizeAndAdd(root) {
 
     const finalSize = modelBounds.getSize(new THREE.Vector3());
     const startDepth = Math.min(Math.max(finalSize.z * 0.18, 2.8), 6.5);
-    homePosition = new THREE.Vector3(0, Math.min(1.62, Math.max(.8, finalSize.y * .23)), startDepth);
+    homePosition = new THREE.Vector3(0, 3.5, startDepth);
     resetView();
 }
 
